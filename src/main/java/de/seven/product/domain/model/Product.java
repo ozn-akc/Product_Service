@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Product {
+    String productId;
     String name;
     String hostId;
     List<String> images;
