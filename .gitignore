@@ -1,37 +1,52 @@
-HELP.md
-.gradle
+# IntelliJ IDEA
+.idea/
+
+# Gradle
+.gradle/
+gradle/
 build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
+# Maven
+target/
 
-### IntelliJ IDEA ###
-.idea
-*.iws
+# Logs
+*.log
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Temporary Files
+*.tmp
+*.temp
+*.swp
+
+# IDE-specific files
 *.iml
 *.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
+*.iws
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+# Compiled bytecode
+*.class
 
-### VS Code ###
+# Application-specific files
+/application.properties
+/application.yml
+
+# Dependencies
+/bin/
+/lib/
+*.jar
+
+# Editor-specific files
 .vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Package Files
+*.jar
+*.war
+*.ear
