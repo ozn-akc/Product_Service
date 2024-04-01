@@ -2,45 +2,36 @@ package de.seven.product.application.service;
 
 import de.seven.product.application.adapter.secondary.ProductRepository;
 import de.seven.product.domain.model.Product;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
+@Service
+@Transactional
 public class ProductService {
-    //TODO Hier den Adapter einsetzen
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    public ProductService(){
+    @Autowired
+    public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
-    public ProductService(ProductRepository productRepository){
-        this.productRepository = productRepository;
+    public Product insertProduct(Product product){
+        return productRepository.save(product);
     }
 
-    public
-    Product insertProduct(Map<String, String> product){
-        return productRepository.insertProduct(product);
+    public void deleteProduct(String productId){
+        productRepository.delete(productId);
     }
 
-    public Product updateProduct(Product product){
-        return productRepository.updateProduct(product);
+    public Product findProductById(String productId){
+        return productRepository.findById(productId);
     }
 
-    public void deleteProduct(Product product){
-        productRepository.deleteProduct(product);
-    }
-
-    public void deleteProduct(Integer productId){
-        productRepository.deleteProduct(productId);
-    }
-
-    public Product findProductById(Integer productId){
-        return productRepository.findProductById(productId);
-    }
-
-    public List<Product> findProduct(Map<String, String> product){
-        return productRepository.findProduct(product);
+    public List<Product> findAllProducts(){
+        return productRepository.findAll();
     }
 
 }

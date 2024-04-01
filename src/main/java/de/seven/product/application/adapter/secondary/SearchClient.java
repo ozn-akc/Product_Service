@@ -4,14 +4,15 @@ import de.seven.product.domain.model.Product;
 
 import java.util.List;
 
-public interface ProductRepository {
+public interface SearchClient {
 
     Product save(Product product);
 
-    Product findById(String productId);
+    Product findById(Integer productId);
 
     List<Product> findAll();
 
-    void delete(String productId);
+    void delete(Product product);
 
+    void delete(Integer productId);
 }
