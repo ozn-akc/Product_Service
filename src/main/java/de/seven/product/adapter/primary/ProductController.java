@@ -31,17 +31,6 @@ public class ProductController {
 
     @PostMapping("/")
     public Product saveProducts(@RequestBody Product product) {
-        /*
-        Product product = Product.builder()
-                .images(List.of("test123", "test2", "test3"))
-                .beds(List.of(Bed.builder().amount(1).type(BedType.SCHLAFCOUCH).build(),Bed.builder().amount(2).type(BedType.QUEENSIZE_DOPPELBETT).build()))
-                .attributes(List.of(Attribute.TV))
-                .reviews(List.of(Review.builder().comment("test").score(5).userId("UserId12345").build()))
-                .rentedDays(List.of(Date.from(Instant.now())))
-                .price(Price.builder().value(100.0).unit(Unit.DOLLAR).build())
-                .address(Address.builder().street("Street").city("City").country("Country").number("Product").build())
-                .build();
-        */
         return productService.insertProduct(product);
     }
 
