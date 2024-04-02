@@ -1,11 +1,15 @@
-package de.seven.product.adapter.postgresql.model;
+package de.seven.product.adapter.secondary.postgresql.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-@Entity(name="Address")
+@Entity(name = "Address")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,7 +26,7 @@ public class Address {
     String country;
     String city;
 
-    public de.seven.product.domain.model.Address toDomainAddress(){
+    public de.seven.product.domain.model.Address toDomainAddress() {
         de.seven.product.domain.model.Address address = de.seven.product.domain.model.Address.builder()
                 .city(city)
                 .country(country)
@@ -32,7 +36,7 @@ public class Address {
         return address;
     }
 
-    public static Address fromDomainAddress(de.seven.product.domain.model.Address domainAddress, Product product){
+    public static Address fromDomainAddress(de.seven.product.domain.model.Address domainAddress, Product product) {
         Address address = Address.builder()
                 .city(domainAddress.getCity())
                 .country(domainAddress.getCountry())

@@ -1,15 +1,24 @@
-package de.seven.product.adapter.postgresql.model;
+package de.seven.product.adapter.secondary.postgresql.model;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-@Entity(name="Product")
+@Entity(name = "Product")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,7 +32,7 @@ public class Product {
     String name;
     String hostId;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="productId")
+    @JoinColumn(name = "productId")
     List<Image> images;
     Integer bedrooms;
     Integer bathrooms;
@@ -33,20 +42,20 @@ public class Product {
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     Address address;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="productId")
+    @JoinColumn(name = "productId")
     List<Bed> beds;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="productId")
+    @JoinColumn(name = "productId")
     List<Attribute> attributes;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="productId")
+    @JoinColumn(name = "productId")
     List<RentedDay> rentedDays;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="productId")
+    @JoinColumn(name = "productId")
     List<Review> reviews;
 
-    public de.seven.product.domain.model.Product toDomainProduct(){
-        de.seven.product.domain.model.Product product = de.seven.product.domain.model.Product.builder()
+    public de.seven.product.domain.model.Product toDomainProduct() {
+        return de.seven.product.domain.model.Product.builder()
                 .productId(productId)
                 .name(name)
                 .hostId(hostId)
@@ -82,30 +91,29 @@ public class Product {
                         .map(Review::toDomainReview)
                         .toList())
                 .build();
-        return product;
     }
 
-    public static Product fromDomainProduct(de.seven.product.domain.model.Product domainProduct){
+    public static Product fromDomainProduct(de.seven.product.domain.model.Product domainProduct) {
         Product product = Product.builder()
                 .productId(domainProduct.getProductId())
                 .name(domainProduct.getName())
                 .hostId(domainProduct.getHostId())
                 .images(
                         Optional.ofNullable(domainProduct.getImages())
-                        .orElse(Collections.emptyList())
-                        .stream()
-                        .map(image -> Image.builder().url(image).build())
-                        .toList()
+                                .orElse(Collections.emptyList())
+                                .stream()
+                                .map(image -> Image.builder().url(image).build())
+                                .toList()
                 )
                 .bathrooms(domainProduct.getBathrooms())
                 .bedrooms(domainProduct.getBedrooms())
                 .description(domainProduct.getDescription())
                 .beds(
                         Optional.ofNullable(domainProduct.getBeds())
-                        .orElse(Collections.emptyList())
-                        .stream()
-                        .map(Bed::fromDomainBed)
-                        .toList()
+                                .orElse(Collections.emptyList())
+                                .stream()
+                                .map(Bed::fromDomainBed)
+                                .toList()
                 )
                 .attributes(
                         Optional.ofNullable(domainProduct.getAttributes())
@@ -116,17 +124,17 @@ public class Product {
                 )
                 .rentedDays(
                         Optional.ofNullable(domainProduct.getRentedDays())
-                        .orElse(Collections.emptyList())
-                        .stream()
-                        .map(rentedDay -> RentedDay.builder().day(rentedDay).build())
-                        .toList()
+                                .orElse(Collections.emptyList())
+                                .stream()
+                                .map(rentedDay -> RentedDay.builder().day(rentedDay).build())
+                                .toList()
                 )
                 .reviews(
                         Optional.ofNullable(domainProduct.getReviews())
-                        .orElse(Collections.emptyList())
-                        .stream()
-                        .map(Review::fromDomainReview)
-                        .toList()
+                                .orElse(Collections.emptyList())
+                                .stream()
+                                .map(Review::fromDomainReview)
+                                .toList()
                 )
                 .build();
         product.setPrice(Optional.ofNullable(domainProduct.getPrice())

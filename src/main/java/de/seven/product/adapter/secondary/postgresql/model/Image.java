@@ -1,4 +1,4 @@
-package de.seven.product.adapter.postgresql.model;
+package de.seven.product.adapter.secondary.postgresql.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,14 +8,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-@Entity(name="Attribute")
+@Entity(name = "Image")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Attribute {
+public class Image {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
     String productId;
-    de.seven.product.domain.model.Attribute attribute;
+    String url;
 }

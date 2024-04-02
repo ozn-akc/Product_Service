@@ -1,10 +1,16 @@
-package de.seven.product.adapter.postgresql.model;
+package de.seven.product.adapter.secondary.postgresql.model;
 
 import de.seven.product.domain.model.Unit;
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
-@Entity(name="Price")
+@Entity(name = "Price")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,7 +25,7 @@ public class Price {
     Double value;
     Unit unit;
 
-    public de.seven.product.domain.model.Price toDomainPrice(){
+    public de.seven.product.domain.model.Price toDomainPrice() {
         de.seven.product.domain.model.Price price = de.seven.product.domain.model.Price.builder()
                 .unit(unit)
                 .value(value)
@@ -27,7 +33,7 @@ public class Price {
         return price;
     }
 
-    public static Price fromDomainPrice(de.seven.product.domain.model.Price domainPrice, Product product){
+    public static Price fromDomainPrice(de.seven.product.domain.model.Price domainPrice, Product product) {
         Price price = Price.builder()
                 .unit(domainPrice.getUnit())
                 .value(domainPrice.getValue())

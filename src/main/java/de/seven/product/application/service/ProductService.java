@@ -18,19 +18,19 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public Product insertProduct(Product product){
+    public Product insertProduct(Product product) {
         return productRepository.save(product);
     }
 
-    public void deleteProduct(String productId){
+    public void deleteProduct(String productId) {
         productRepository.delete(productId);
     }
 
-    public Product findProductById(String productId){
+    public Product findProductById(String productId) {
         return productRepository.findById(productId);
     }
 
-    public List<Product> findAllProducts(){
+    public List<Product> findAllProducts() {
         return productRepository.findAll();
     }
 

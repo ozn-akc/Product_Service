@@ -1,4 +1,4 @@
-package de.seven.product.adapter.postgresql.model;
+package de.seven.product.adapter.secondary.postgresql.model;
 
 import de.seven.product.domain.model.BedType;
 import jakarta.persistence.Entity;
@@ -9,19 +9,19 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-@Entity(name="Bed")
+@Entity(name = "Bed")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Bed {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
     String productId;
     Integer amount;
     BedType type;
 
-    public de.seven.product.domain.model.Bed toDomainBed(){
+    public de.seven.product.domain.model.Bed toDomainBed() {
         de.seven.product.domain.model.Bed bed = de.seven.product.domain.model.Bed.builder()
                 .amount(amount)
                 .type(type)
@@ -29,7 +29,7 @@ public class Bed {
         return bed;
     }
 
-    public static Bed fromDomainBed(de.seven.product.domain.model.Bed domainBed){
+    public static Bed fromDomainBed(de.seven.product.domain.model.Bed domainBed) {
         Bed bed = Bed.builder()
                 .amount(domainBed.getAmount())
                 .type(domainBed.getType())

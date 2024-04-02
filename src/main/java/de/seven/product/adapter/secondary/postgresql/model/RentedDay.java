@@ -1,4 +1,4 @@
-package de.seven.product.adapter.postgresql.model;
+package de.seven.product.adapter.secondary.postgresql.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-@Entity(name="RentedDay")
+@Entity(name = "RentedDay")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class RentedDay {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
     String productId;
     Date day;

@@ -1,17 +1,13 @@
-package de.seven.product.adapter.secondary;
+package de.seven.product.adapter.secondary.postgresql;
 
-import de.seven.product.adapter.postgresql.model.*;
+import de.seven.product.adapter.secondary.postgresql.model.Product;
 import de.seven.product.application.adapter.secondary.ProductRepository;
-import de.seven.product.domain.model.BedType;
-import de.seven.product.domain.model.Unit;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
-import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 

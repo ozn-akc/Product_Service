@@ -8,7 +8,7 @@ public enum Attribute {
     WASCHMASCHINE("Waschmaschine"),
     TROCKNER("Trockner");
 
-    Attribute(String value){
+    Attribute(String value) {
         this.value = value;
     }
 
