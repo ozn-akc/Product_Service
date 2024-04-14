@@ -1,5 +1,6 @@
 package de.seven.product.adapter.secondary.postgresql.model;
 
+import de.seven.product.domain.model.Bed;
 import de.seven.product.domain.model.BedType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Bed {
+public class BedDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
@@ -21,16 +22,16 @@ public class Bed {
     Integer amount;
     BedType type;
 
-    public de.seven.product.domain.model.Bed toDomainBed() {
-        de.seven.product.domain.model.Bed bed = de.seven.product.domain.model.Bed.builder()
+    public Bed toDomainBed() {
+         Bed bed = Bed.builder()
                 .amount(amount)
                 .type(type)
                 .build();
         return bed;
     }
 
-    public static Bed fromDomainBed(de.seven.product.domain.model.Bed domainBed) {
-        Bed bed = Bed.builder()
+    public static BedDTO fromDomainBed(Bed domainBed) {
+        BedDTO bed = BedDTO.builder()
                 .amount(domainBed.getAmount())
                 .type(domainBed.getType())
                 .build();

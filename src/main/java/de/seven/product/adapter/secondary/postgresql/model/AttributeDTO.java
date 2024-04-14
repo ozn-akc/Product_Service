@@ -1,5 +1,6 @@
 package de.seven.product.adapter.secondary.postgresql.model;
 
+import de.seven.product.domain.model.Attribute;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,10 +13,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Attribute {
+public class AttributeDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
     String productId;
-    de.seven.product.domain.model.Attribute attribute;
+    Attribute attribute;
 }

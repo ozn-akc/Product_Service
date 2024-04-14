@@ -1,5 +1,6 @@
 package de.seven.product.adapter.secondary.postgresql.model;
 
+import de.seven.product.domain.model.Price;
 import de.seven.product.domain.model.Unit;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -14,27 +15,27 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Price {
+public class PriceDTO {
     @Id
     private String id;
 
     @OneToOne
     @JoinColumn(name = "productId")
     @MapsId
-    private Product product;
+    private ProductDTO product;
     Double value;
     Unit unit;
 
-    public de.seven.product.domain.model.Price toDomainPrice() {
-        de.seven.product.domain.model.Price price = de.seven.product.domain.model.Price.builder()
+    public Price toDomainPrice() {
+        Price price = Price.builder()
                 .unit(unit)
                 .value(value)
                 .build();
         return price;
     }
 
-    public static Price fromDomainPrice(de.seven.product.domain.model.Price domainPrice, Product product) {
-        Price price = Price.builder()
+    public static PriceDTO fromDomainPrice(Price domainPrice, ProductDTO product) {
+        PriceDTO price = PriceDTO.builder()
                 .unit(domainPrice.getUnit())
                 .value(domainPrice.getValue())
                 .product(product)

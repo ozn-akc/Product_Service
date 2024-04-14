@@ -1,6 +1,7 @@
 package de.seven.product.adapter.secondary.postgresql.model;
 
 
+import de.seven.product.domain.model.Review;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Review {
+public class ReviewDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
@@ -26,8 +27,8 @@ public class Review {
     String comment;
     String userId;
 
-    public de.seven.product.domain.model.Review toDomainReview() {
-        de.seven.product.domain.model.Review review = de.seven.product.domain.model.Review.builder()
+    public Review toDomainReview() {
+        Review review = Review.builder()
                 .comment(comment)
                 .score(score)
                 .userId(userId)
@@ -35,8 +36,8 @@ public class Review {
         return review;
     }
 
-    public static Review fromDomainReview(de.seven.product.domain.model.Review domainReview) {
-        Review price = Review.builder()
+    public static ReviewDTO fromDomainReview(Review domainReview) {
+        ReviewDTO price = ReviewDTO.builder()
                 .userId(domainReview.getUserId())
                 .score(domainReview.getScore())
                 .comment(domainReview.getComment())

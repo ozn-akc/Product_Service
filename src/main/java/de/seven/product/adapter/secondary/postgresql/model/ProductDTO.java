@@ -1,5 +1,6 @@
 package de.seven.product.adapter.secondary.postgresql.model;
 
+import de.seven.product.domain.model.Product;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,7 +25,7 @@ import java.util.Optional;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Product {
+public class ProductDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     String productId;
@@ -32,29 +33,29 @@ public class Product {
     String hostId;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "productId")
-    List<Image> images;
+    List<ImageDTO> images;
     Integer bedrooms;
     Integer bathrooms;
     String description;
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    Price price;
+    PriceDTO price;
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    Address address;
+    AddressDTO address;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "productId")
-    List<Bed> beds;
+    List<BedDTO> beds;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "productId")
-    List<Attribute> attributes;
+    List<AttributeDTO> attributes;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "productId")
-    List<RentedDay> rentedDays;
+    List<RentedDayDTO> rentedDays;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "productId")
-    List<Review> reviews;
+    List<ReviewDTO> reviews;
 
-    public de.seven.product.domain.model.Product toDomainProduct() {
-        return de.seven.product.domain.model.Product.builder()
+    public Product toDomainProduct() {
+        return Product.builder()
                 .productId(productId)
                 .name(name)
                 .hostId(hostId)
@@ -67,12 +68,12 @@ public class Product {
                 .bathrooms(bathrooms)
                 .description(description)
                 .price(Optional.ofNullable(price)
-                        .map(Price::toDomainPrice)
+                        .map(PriceDTO::toDomainPrice)
                         .orElse(null))
                 .beds(Optional.ofNullable(beds)
                         .orElse(Collections.emptyList())
                         .stream()
-                        .map(Bed::toDomainBed)
+                        .map(BedDTO::toDomainBed)
                         .toList())
                 .attributes(Optional.ofNullable(attributes)
                         .orElse(Collections.emptyList())
@@ -87,13 +88,13 @@ public class Product {
                 .reviews(Optional.ofNullable(reviews)
                         .orElse(Collections.emptyList())
                         .stream()
-                        .map(Review::toDomainReview)
+                        .map(ReviewDTO::toDomainReview)
                         .toList())
                 .build();
     }
 
-    public static Product fromDomainProduct(de.seven.product.domain.model.Product domainProduct) {
-        Product product = Product.builder()
+    public static ProductDTO fromDomainProduct(Product domainProduct) {
+        ProductDTO product = ProductDTO.builder()
                 .productId(domainProduct.getProductId())
                 .name(domainProduct.getName())
                 .hostId(domainProduct.getHostId())
@@ -101,7 +102,7 @@ public class Product {
                         Optional.ofNullable(domainProduct.getImages())
                                 .orElse(Collections.emptyList())
                                 .stream()
-                                .map(image -> Image.builder().url(image).build())
+                                .map(image -> ImageDTO.builder().url(image).build())
                                 .toList()
                 )
                 .bathrooms(domainProduct.getBathrooms())
@@ -111,36 +112,36 @@ public class Product {
                         Optional.ofNullable(domainProduct.getBeds())
                                 .orElse(Collections.emptyList())
                                 .stream()
-                                .map(Bed::fromDomainBed)
+                                .map(BedDTO::fromDomainBed)
                                 .toList()
                 )
                 .attributes(
                         Optional.ofNullable(domainProduct.getAttributes())
                                 .orElse(Collections.emptyList())
                                 .stream()
-                                .map(attribute -> Attribute.builder().attribute(attribute).build())
+                                .map(attribute -> AttributeDTO.builder().attribute(attribute).build())
                                 .toList()
                 )
                 .rentedDays(
                         Optional.ofNullable(domainProduct.getRentedDays())
                                 .orElse(Collections.emptyList())
                                 .stream()
-                                .map(rentedDay -> RentedDay.builder().day(rentedDay).build())
+                                .map(rentedDay -> RentedDayDTO.builder().day(rentedDay).build())
                                 .toList()
                 )
                 .reviews(
                         Optional.ofNullable(domainProduct.getReviews())
                                 .orElse(Collections.emptyList())
                                 .stream()
-                                .map(Review::fromDomainReview)
+                                .map(ReviewDTO::fromDomainReview)
                                 .toList()
                 )
                 .build();
         product.setPrice(Optional.ofNullable(domainProduct.getPrice())
-                .map(price -> Price.fromDomainPrice(price, product))
+                .map(price -> PriceDTO.fromDomainPrice(price, product))
                 .orElse(null));
         product.setAddress(Optional.ofNullable(domainProduct.getAddress())
-                .map(address -> Address.fromDomainAddress(address, product))
+                .map(address -> AddressDTO.fromDomainAddress(address, product))
                 .orElse(null));
         return product;
     }

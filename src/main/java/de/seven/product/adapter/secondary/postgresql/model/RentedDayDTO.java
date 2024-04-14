@@ -8,14 +8,16 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "Image")
+import java.util.Date;
+
+@Entity(name = "RentedDay")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Image {
+public class RentedDayDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
     String productId;
-    String url;
+    Date day;
 }
