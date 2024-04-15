@@ -13,8 +13,6 @@ import lombok.NoArgsConstructor;
 public class HostDTO {
     @Id
     String hostId;
-    String firstName;
-    String lastName;
 
     public String toDomainHost() {
         return hostId;

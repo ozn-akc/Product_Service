@@ -1,5 +1,6 @@
 package de.seven.product.application.service;
 
+import de.seven.product.adapter.secondary.postgresql.model.HostDTO;
 import de.seven.product.application.adapter.secondary.ProductRepository;
 import de.seven.product.domain.model.Product;
 import jakarta.transaction.Transactional;
@@ -34,7 +35,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Host insertHost(Host host) {
+    public String insertHost(String host) {
         return productRepository.save(host);
     }
 

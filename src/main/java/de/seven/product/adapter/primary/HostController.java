@@ -1,5 +1,6 @@
 package de.seven.product.adapter.primary;
 
+import de.seven.product.adapter.secondary.postgresql.model.HostDTO;
 import de.seven.product.application.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HostController {
     private final ProductService productService;
     @PostMapping("/")
-    public Host saveHost(@RequestBody Host host) {
+    public String saveHost(@RequestBody String host) {
         return productService.insertHost(host);
     }
 

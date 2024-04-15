@@ -7,6 +7,7 @@ import de.seven.product.domain.model.Product;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
@@ -49,7 +50,7 @@ public class PostgreSQLRepository implements ProductRepository {
         entityManager.remove(entityManager.find(ProductDTO.class, productId));
     }
 
-    public Host save(Host host) {
+    public String save(String host) {
         HostDTO data = HostDTO.fromDomainHost(host);
         entityManager.merge(data);
         entityManager.flush();
