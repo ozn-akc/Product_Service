@@ -50,7 +50,13 @@ public class PostgreSQLRepository implements ProductRepository {
         entityManager.remove(entityManager.find(ProductDTO.class, productId));
     }
 
-    public String save(String host) {
+    @Override
+    public void deleteHost(String hostId) {
+        entityManager.remove(entityManager.find(HostDTO.class, hostId));
+    }
+
+    @Override
+    public String saveHost(String host) {
         HostDTO data = HostDTO.fromDomainHost(host);
         entityManager.merge(data);
         entityManager.flush();

@@ -1,6 +1,5 @@
 package de.seven.product.application.adapter.secondary;
 
-import de.seven.product.adapter.secondary.postgresql.model.HostDTO;
 import de.seven.product.domain.model.Product;
 
 import java.util.List;
@@ -9,7 +8,7 @@ public interface ProductRepository {
 
     Product save(Product product);
 
-    String save(String host);
+    String saveHost(String host);
 
     Product findById(String productId);
 
@@ -17,4 +16,5 @@ public interface ProductRepository {
 
     void delete(String productId);
 
+    void deleteHost(String hostId);
 }

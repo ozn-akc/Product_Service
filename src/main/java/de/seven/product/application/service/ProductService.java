@@ -36,8 +36,11 @@ public class ProductService {
     }
 
     public String insertHost(String host) {
-        return productRepository.save(host);
+        return productRepository.saveHost(host);
     }
 
+    public void deleteHost(String hostId) {
+        productRepository.deleteHost(hostId);
+    }
 
 }
