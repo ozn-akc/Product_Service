@@ -1,10 +1,12 @@
 package de.seven.product.adapter.secondary.postgresql;
 
+import de.seven.product.adapter.secondary.postgresql.model.HostDTO;
 import de.seven.product.adapter.secondary.postgresql.model.ProductDTO;
 import de.seven.product.application.adapter.secondary.ProductRepository;
 import de.seven.product.domain.model.Product;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
@@ -20,9 +22,12 @@ public class PostgreSQLRepository implements ProductRepository {
     private final EntityManager entityManager;
 
     @Override
+    @Transactional
     public Product save(Product product) {
         ProductDTO data = ProductDTO.fromDomainProduct(product);
-        entityManager.persist(data);
+        HostDTO host = entityManager.find(HostDTO.class, product.getHostId());
+        data.setHost(host);
+        entityManager.merge(data);
         entityManager.flush();
         return data.toDomainProduct();
     }
@@ -43,5 +48,13 @@ public class PostgreSQLRepository implements ProductRepository {
     public void delete(String productId) {
         entityManager.remove(entityManager.find(ProductDTO.class, productId));
     }
+
+    public Host save(Host host) {
+        HostDTO data = HostDTO.fromDomainHost(host);
+        entityManager.merge(data);
+        entityManager.flush();
+        return data.toDomainHost();
+    }
+
 }
 

@@ -8,6 +8,8 @@ public interface ProductRepository {
 
     Product save(Product product);
 
+    Host save(Host host);
+
     Product findById(String productId);
 
     List<Product> findAll();

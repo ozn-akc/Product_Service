@@ -34,4 +34,9 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    public Host insertHost(Host host) {
+        return productRepository.save(host);
+    }
+
+
 }

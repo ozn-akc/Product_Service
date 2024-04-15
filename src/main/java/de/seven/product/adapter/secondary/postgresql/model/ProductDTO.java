@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
@@ -30,7 +31,9 @@ public class ProductDTO {
     @GeneratedValue(strategy = GenerationType.UUID)
     String productId;
     String name;
-    String hostId;
+    @ManyToOne
+    @JoinColumn(name = "host_id", insertable = false, updatable = false)
+    HostDTO host;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "productId")
     List<ImageDTO> images;
@@ -58,7 +61,9 @@ public class ProductDTO {
         return Product.builder()
                 .productId(productId)
                 .name(name)
-                .hostId(hostId)
+                .hostId(Optional.ofNullable(host)
+                        .map(HostDTO::toDomainHost)
+                        .orElse(null))
                 .images(Optional.ofNullable(images)
                         .orElse(Collections.emptyList())
                         .stream()
@@ -97,7 +102,11 @@ public class ProductDTO {
         ProductDTO product = ProductDTO.builder()
                 .productId(domainProduct.getProductId())
                 .name(domainProduct.getName())
-                .hostId(domainProduct.getHostId())
+                .host(
+                        Optional.ofNullable(domainProduct.getHostId())
+                                .map(HostDTO::fromDomainHost)
+                                .orElse(null)
+                )
                 .images(
                         Optional.ofNullable(domainProduct.getImages())
                                 .orElse(Collections.emptyList())
