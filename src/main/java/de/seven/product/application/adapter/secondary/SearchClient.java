@@ -1,12 +1,11 @@
 package de.seven.product.application.adapter.secondary;
 
 import de.seven.product.domain.model.Product;
+import reactor.core.publisher.Mono;
 
 public interface SearchClient {
 
-    Product save(Product product);
+    Mono<Product> saveProduct(Product product);
 
-    void delete(Product product);
-
-    void delete(Integer productId);
+    void deleteProduct(Integer productId);
 }
