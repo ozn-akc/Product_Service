@@ -18,7 +18,7 @@ public class HTTPClient implements SearchClient {
     private final WebClient webClient;
 
     @Autowired
-    public HTTPClient(WebClient.Builder webClientBuilder, @Value("${example.base-url}") String baseUrl) {
+    public HTTPClient(WebClient.Builder webClientBuilder, @Value("${search.client.http}") String baseUrl) {
         this.webClient = webClientBuilder.baseUrl(baseUrl).build();
     }
 
@@ -32,7 +32,7 @@ public class HTTPClient implements SearchClient {
     }
 
     @Override
-    public void deleteProduct(Integer productId) {
+    public void deleteProduct(String productId) {
         webClient.delete()
                 .uri("/product/{productId}", productId) // Assuming productId is part of the URL
                 .retrieve();

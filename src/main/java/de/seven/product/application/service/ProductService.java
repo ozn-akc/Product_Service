@@ -1,7 +1,7 @@
 package de.seven.product.application.service;
 
-import de.seven.product.adapter.secondary.postgresql.model.HostDTO;
 import de.seven.product.application.adapter.secondary.ProductRepository;
+import de.seven.product.application.adapter.secondary.SearchClient;
 import de.seven.product.domain.model.Product;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,18 +13,23 @@ import java.util.List;
 @Transactional
 public class ProductService {
     private final ProductRepository productRepository;
+    private final SearchClient searchClient;
 
     @Autowired
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, SearchClient searchClient) {
         this.productRepository = productRepository;
+        this.searchClient = searchClient;
     }
 
     public Product insertProduct(Product product) {
-        return productRepository.save(product);
+        Product result = productRepository.save(product);
+        searchClient.saveProduct(result);
+        return result;
     }
 
     public void deleteProduct(String productId) {
         productRepository.delete(productId);
+        searchClient.deleteProduct(productId);
     }
 
     public Product findProductById(String productId) {
