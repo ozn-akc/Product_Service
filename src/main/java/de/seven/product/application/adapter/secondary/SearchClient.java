@@ -7,5 +7,5 @@ public interface SearchClient {
 
     Mono<Product> saveProduct(Product product);
 
-    void deleteProduct(String productId);
+    Mono<Void> deleteProduct(String productId);
 }

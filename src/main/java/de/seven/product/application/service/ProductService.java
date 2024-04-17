@@ -23,13 +23,13 @@ public class ProductService {
 
     public Product insertProduct(Product product) {
         Product result = productRepository.save(product);
-        searchClient.saveProduct(result);
+        searchClient.saveProduct(result).block();
         return result;
     }
 
     public void deleteProduct(String productId) {
         productRepository.delete(productId);
-        searchClient.deleteProduct(productId);
+        searchClient.deleteProduct(productId).block();
     }
 
     public Product findProductById(String productId) {

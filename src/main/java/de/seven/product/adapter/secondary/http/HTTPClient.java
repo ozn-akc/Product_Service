@@ -25,16 +25,17 @@ public class HTTPClient implements SearchClient {
     @Override
     public Mono<Product> saveProduct(Product product) {
         return webClient.post()
-                .uri("/product")
+                .uri("/product/")
                 .body(BodyInserters.fromValue(product))
                 .retrieve()
                 .bodyToMono(Product.class);
     }
 
     @Override
-    public void deleteProduct(String productId) {
-        webClient.delete()
+    public Mono<Void> deleteProduct(String productId) {
+        return webClient.delete()
                 .uri("/product/{productId}", productId) // Assuming productId is part of the URL
-                .retrieve();
+                .retrieve()
+                .bodyToMono(Void.class);
     }
 }
