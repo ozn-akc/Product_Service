@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity(name = "RentedDay")
 @Builder
@@ -19,5 +19,5 @@ public class RentedDayDTO {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
     String productId;
-    Date day;
+    LocalDate day;
 }

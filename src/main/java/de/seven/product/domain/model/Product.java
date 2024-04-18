@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Builder
@@ -22,6 +22,6 @@ public class Product {
     Address address;
     List<Bed> beds;
     List<Attribute> attributes;
-    List<Date> rentedDays;
+    List<LocalDate> rentedDays;
     List<Review> reviews;
 }
