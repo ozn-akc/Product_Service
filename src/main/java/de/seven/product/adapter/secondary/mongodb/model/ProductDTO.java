@@ -16,8 +16,7 @@ import java.util.Optional;
 @Setter
 public class ProductDTO {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    String productId;
+    String id;
     String name;
     HostDTO host;
     List<String> images;
@@ -33,7 +32,7 @@ public class ProductDTO {
 
     public Product toDomainProduct() {
         return Product.builder()
-                .productId(productId)
+                .productId(id)
                 .name(name)
                 .hostId(Optional.ofNullable(host)
                         .map(HostDTO::toDomainHost)
@@ -52,7 +51,7 @@ public class ProductDTO {
 
     public static ProductDTO fromDomainProduct(Product domainProduct) {
         ProductDTO product = ProductDTO.builder()
-                .productId(domainProduct.getProductId())
+                .id(domainProduct.getProductId())
                 .name(domainProduct.getName())
                 .host(Optional.ofNullable(domainProduct.getHostId())
                                 .map(HostDTO::fromDomainHost)

@@ -1,7 +1,5 @@
 package de.seven.product.adapter.secondary.mongodb.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,16 +12,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 public class HostDTO {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    String hostId;
+    String id;
 
     public String toDomainHost() {
-        return hostId;
+        return id;
     }
 
     public static HostDTO fromDomainHost(String hostId) {
         return HostDTO.builder()
-                .hostId(hostId)
+                .id(hostId)
                 .build();
     }
 }
